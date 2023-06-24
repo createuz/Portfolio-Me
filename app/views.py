@@ -31,3 +31,14 @@ def portfolio_details(request):
 
 def inner_page(request):
     return render(request, 'inner-page.html')
+
+
+from django.http import HttpResponse
+
+from .tasks import send_email
+
+
+def send_emails(request):
+    send_to = 'rajabovshohjahono3@gmail.com'
+    send_email.delay(send_to)
+    return HttpResponse("Mail request sent")
